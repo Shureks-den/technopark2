@@ -2,7 +2,7 @@ TARGET = main.out
 HDRS_DIR = project/include
 SRCS = \
 	project/src/main.c \
-	project/src/blackrecord.c\
+	project/src/utils.c\
 	project/src/main_module.c\
 	project/src/write.c
 

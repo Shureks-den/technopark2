@@ -16,4 +16,5 @@ struct masterRecord {
 
 typedef  struct  masterRecord Data;
 
+void blackRecord(FILE *ofPTR, FILE *ofPTR_2, FILE *blackrecord, Data client_data, Data transfer);
 #endif  // PROJECT_INCLUDE_UTILS_H_
