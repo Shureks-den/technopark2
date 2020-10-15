@@ -1,5 +1,6 @@
 #include "write.h"
 #include "main_module.h"
+#include "utils.h"
 
 int main(void) {
     int choice = 0;
