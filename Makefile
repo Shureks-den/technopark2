@@ -1,6 +1,5 @@
 TARGET = main.out
 
-# XXX: Don't forget backslash at the end of any line except the last one
 HDRS = \
 	   project/include
 
