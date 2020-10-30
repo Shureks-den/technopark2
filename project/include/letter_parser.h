@@ -12,6 +12,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <sys/types.h>
+#include <wchar.h>
 
 
 #define FROM "from:"

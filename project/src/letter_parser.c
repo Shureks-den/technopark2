@@ -140,6 +140,7 @@ void parse_letter(const char *path_to_eml) {
     rule_t rule = {17, NULL};
     char *new = NULL;
     char *new1 = NULL;
+    
     while (line != NULL) {
         lexem = get_lexem(line);
         if (state < S_COUNT && lexem < L_COUNT) {
@@ -195,10 +196,10 @@ void parse_letter(const char *path_to_eml) {
                     state != S_FROM_TO &&
                     state != S_FROM_TO_DATE &&
                     state != S_END) {
-                    char *extraptr;
-                    strncat(data.to, line, strlen(line));
-                    data.to = strtok_r(data.to, "\n\r", &extraptr);
-                }
+                    char *nes = data.to;
+                    sprintf(nes, "%s%s", data.to, line);
+                    data.to = nes;
+                } 
 
                 if (lexem == L_DATE &&
                     state != S_DATE &&
