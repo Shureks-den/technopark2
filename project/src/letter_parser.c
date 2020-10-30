@@ -138,8 +138,7 @@ void parse_letter(const char *path_to_eml) {
     char *line = strtok_r(file_in_memory, "\n\r", &saveptr);
 
     rule_t rule = {17, NULL};
-    char *new = NULL;
-    char *new1 = NULL;
+    
     
     while (line != NULL) {
         lexem = get_lexem(line);
@@ -180,12 +179,14 @@ void parse_letter(const char *path_to_eml) {
                     state != S_END) {
                     char *saveptr1;
                     char *saveptr2;
-                    new = calloc(1, strlen(data.from) + strlen(line));
+                    char *new = calloc(sizeof(new), strlen(data.from) + strlen(line));
                     data.from = strtok_r(data.from, "\n\r", &saveptr1);
                     line = strtok_r(line, "\n\r", &saveptr2);
-                    strncat(new, data.from, strlen(data.from));
-                    strncat(new, line, strlen(line));
-                    data.from = new;
+                    if (new != NULL) {
+                    sprintf(new, "%s%s", data.from, line);
+                    strcpy(data.from, new);
+                    free(new);
+                    }
                 } 
 
                 if (lexem == L_TO &&
@@ -210,13 +211,8 @@ void parse_letter(const char *path_to_eml) {
                     state != S_FROM_DATE_BOUND &&
                     state != S_FROM_DATE &&
                     state != S_END) {
-                    char *saveptr1;
-                    char *saveptr2;
-                    new1 = calloc(1, strlen(data.date) + strlen(line));
-                    data.date = strtok_r(data.date, "\n\r", &saveptr1);
-                    line = strtok_r(line, "\n\r", &saveptr2);
-                    strncat(new1, data.date, strlen(data.date));
-                    strncat(new1, line, strlen(line));
+                    char *new1 = data.date;
+                    snprintf(new1, strlen(data.date)+strlen(line),"%s%s", data.date, line);
                     data.date = new1;
                 }
                 line = strtok_r(NULL, "\n\r", &saveptr);
@@ -264,10 +260,5 @@ void parse_letter(const char *path_to_eml) {
         printf("%s", data.date);
     }
     printf("|%zu\n", data.num_parts);
-    if (new != NULL) {
-        free(new);
-    }
-    if (new1 != NULL) {
-        free(new1);
-    }
+   
 }
