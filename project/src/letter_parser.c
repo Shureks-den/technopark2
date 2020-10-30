@@ -138,6 +138,8 @@ void parse_letter(const char *path_to_eml) {
     char *line = strtok_r(file_in_memory, "\n\r", &saveptr);
 
     rule_t rule = {17, NULL};
+    char *new = NULL;
+    char *new1 = NULL;
     while (line != NULL) {
         lexem = get_lexem(line);
         if (state < S_COUNT && lexem < L_COUNT) {
@@ -162,6 +164,7 @@ void parse_letter(const char *path_to_eml) {
                 continue;
             }
         }
+    
         line = strtok_r(NULL, "\n", &saveptr);
         if (line != NULL && is_parts_begin == 0) {
             while (line[0] == ' ' && lexem < L_BOUND) {
@@ -176,13 +179,13 @@ void parse_letter(const char *path_to_eml) {
                     state != S_END) {
                     char *saveptr1;
                     char *saveptr2;
-                    char *new = calloc(1, strlen(data.from) + strlen(line));
+                    new = calloc(1, strlen(data.from) + strlen(line));
                     data.from = strtok_r(data.from, "\n\r", &saveptr1);
                     line = strtok_r(line, "\n\r", &saveptr2);
                     strncat(new, data.from, strlen(data.from));
                     strncat(new, line, strlen(line));
                     data.from = new;
-                }
+                } 
 
                 if (lexem == L_TO &&
                     state != S_TO &&
@@ -208,12 +211,12 @@ void parse_letter(const char *path_to_eml) {
                     state != S_END) {
                     char *saveptr1;
                     char *saveptr2;
-                    char *new = calloc(1, strlen(data.date) + strlen(line));
+                    new1 = calloc(1, strlen(data.date) + strlen(line));
                     data.date = strtok_r(data.date, "\n\r", &saveptr1);
                     line = strtok_r(line, "\n\r", &saveptr2);
-                    strncat(new, data.date, strlen(data.date));
-                    strncat(new, line, strlen(line));
-                    data.date = new;
+                    strncat(new1, data.date, strlen(data.date));
+                    strncat(new1, line, strlen(line));
+                    data.date = new1;
                 }
                 line = strtok_r(NULL, "\n\r", &saveptr);
             }
@@ -239,7 +242,6 @@ void parse_letter(const char *path_to_eml) {
             is_body_found = 1;
         }
     }
-
     if (data.num_parts != 0 && have_afterpart == 0) {
         data.num_parts--;
     } else if (have_body == 0) {
@@ -261,4 +263,10 @@ void parse_letter(const char *path_to_eml) {
         printf("%s", data.date);
     }
     printf("|%zu\n", data.num_parts);
+    if (new != NULL) {
+        free(new);
+    }
+    if (new1 != NULL) {
+        free(new1);
+    }
 }
