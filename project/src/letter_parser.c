@@ -57,35 +57,52 @@ void store_bound(char *line, letter_t *data) {
 }
 
 rule_t syntax[S_COUNT][L_COUNT] = {
-                            /* L_FROM                           L_TO                           L_DATE                           L_BOUND */
-/* S_HEAD */            {{S_FROM, store_from},            {S_TO, store_to},           {S_DATE, store_date},            {S_BOUND, store_bound}},
-/* S_FROM */            {{S_ERR, NULL},                   {S_FROM_TO, store_to},      {S_FROM_DATE, store_date},       {S_FROM_BOUND, store_bound}},
-/* S_TO */              {{S_FROM_TO, store_from},         {S_ERR, NULL},              {S_TO_DATE, store_date},         {S_TO_BOUND, store_bound}},
-/* S_DATE */            {{S_FROM_DATE, store_from},       {S_TO_DATE, store_to},      {S_ERR, NULL},                   {S_DATE_BOUND, store_bound}},
-/* S_BOUND */           {{S_FROM_BOUND, store_from},      {S_TO_BOUND, store_to},     {S_DATE_BOUND, store_date},      {S_ERR, NULL}},
+                            /* L_FROM             L_TO    L_DATE                           L_BOUND */
+/* S_HEAD */           {{S_FROM, store_from},            {S_TO, store_to},
+                                {S_DATE, store_date},            {S_BOUND, store_bound}},
+/* S_FROM */           {{S_ERR, NULL},                   {S_FROM_TO, store_to},
+                                {S_FROM_DATE, store_date},       {S_FROM_BOUND, store_bound}},
+/* S_TO */             {{S_FROM_TO, store_from},         {S_ERR, NULL},
+                                {S_TO_DATE, store_date},         {S_TO_BOUND, store_bound}},
+/* S_DATE */           {{S_FROM_DATE, store_from},       {S_TO_DATE, store_to},
+                                {S_ERR, NULL},                   {S_DATE_BOUND, store_bound}},
+/* S_BOUND */          {{S_FROM_BOUND, store_from},      {S_TO_BOUND, store_to},
+                                {S_DATE_BOUND, store_date},      {S_ERR, NULL}},
 
-/* S_FROM_TO */         {{S_ERR, NULL},                   {S_ERR, NULL},              {S_FROM_TO_DATE, store_date},    {S_FROM_TO_BOUND, store_bound}},
-/* S_FROM_DATE */       {{S_ERR, NULL},                   {S_FROM_TO_DATE, store_to}, {S_ERR, NULL},                   {S_FROM_DATE_BOUND, store_bound}},
-/* S_FROM_BOUND */      {{S_ERR, NULL},                   {S_FROM_TO_BOUND, store_to},{S_FROM_DATE_BOUND, store_date}, {S_ERR, NULL}},
+/* S_FROM_TO */        {{S_ERR, NULL},                   {S_ERR, NULL},
+                                {S_FROM_TO_DATE, store_date},    {S_FROM_TO_BOUND, store_bound}},
+/* S_FROM_DATE */      {{S_ERR, NULL},                   {S_FROM_TO_DATE, store_to},
+                                {S_ERR, NULL},                   {S_FROM_DATE_BOUND, store_bound}},
+/* S_FROM_BOUND */     {{S_ERR, NULL},                   {S_FROM_TO_BOUND, store_to},
+                                {S_FROM_DATE_BOUND, store_date}, {S_ERR, NULL}},
 
-/* S_TO_DATE */         {{S_FROM_TO_DATE, store_from},    {S_ERR, NULL},              {S_DATE, NULL},                  {S_TO_DATE_BOUND, store_bound}},
-/* S_TO_BOUND */        {{S_FROM_TO_BOUND, store_from},   {S_ERR, NULL},              {S_TO_DATE_BOUND, store_date},   {S_ERR, NULL}},
-/* S_DATE_BOUND */      {{S_FROM_DATE_BOUND, store_from}, {S_TO_DATE_BOUND, store_to},{S_ERR, NULL},                   {S_ERR, NULL}},
+/* S_TO_DATE */        {{S_FROM_TO_DATE, store_from},    {S_ERR, NULL},
+                                {S_DATE, NULL},                  {S_TO_DATE_BOUND, store_bound}},
+/* S_TO_BOUND */       {{S_FROM_TO_BOUND, store_from},   {S_ERR, NULL},
+                                {S_TO_DATE_BOUND, store_date},   {S_ERR, NULL}},
+/* S_DATE_BOUND */     {{S_FROM_DATE_BOUND, store_from}, {S_TO_DATE_BOUND, store_to},
+                                {S_ERR, NULL},                   {S_ERR, NULL}},
 
-/* S_FROM_TO_DATE */    {{S_ERR, NULL},                   {S_ERR, NULL},              {S_ERR, NULL},                   {S_END, store_bound}},
-/* S_FROM_TO_BOUND */   {{S_ERR, NULL},                   {S_ERR, NULL},              {S_END, store_date},             {S_ERR, NULL}},
-/* S_FROM_DATE_BOUND */ {{S_ERR, NULL},                   {S_END, store_to},          {S_ERR, NULL},                   {S_ERR, NULL}},
-/* S_TO_DATE_BOUND */   {{S_END, NULL},                   {S_ERR, NULL},              {S_ERR, NULL},                   {S_ERR, NULL}},
+/* S_FROM_TO_DATE */   {{S_ERR, NULL},                   {S_ERR, NULL},
+                                {S_ERR, NULL},                   {S_END, store_bound}},
+/* S_FROM_TO_BOUND */  {{S_ERR, NULL},                   {S_ERR, NULL},
+                                {S_END, store_date},             {S_ERR, NULL}},
+/* S_FROM_DATE_BOUND */{{S_ERR, NULL},                   {S_END, store_to},
+                                {S_ERR, NULL},                   {S_ERR, NULL}},
+/* S_TO_DATE_BOUND */  {{S_END, NULL},                   {S_ERR, NULL},
+                                {S_ERR, NULL},                   {S_ERR, NULL}},
 };
 
 void parse_letter(const char *path_to_eml) {
     int fd = open(path_to_eml, O_RDWR, S_IRUSR | S_IWUSR);
     struct stat statbuf;
-    if (fstat(fd, &statbuf) < 0 ) {
+
+    if (fstat(fd, &statbuf) < 0) {
         perror("PROBLEM WITH SIZE");
+        return;
     }
 
-    
+
     char* file_in_memory = mmap(NULL, statbuf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
     close(fd);
 
@@ -94,7 +111,8 @@ void parse_letter(const char *path_to_eml) {
     int empty_line = 0;
 
     for (int i = 0; i < statbuf.st_size; i++) {
-        if (empty_line == 1 && file_in_memory[i] != '\n' && file_in_memory[i] != '\r' && file_in_memory[i] != '\0' && file_in_memory[i] != 10) {
+        if (empty_line == 1 && file_in_memory[i] != '\n' && file_in_memory[i] != '\r' &&
+            file_in_memory[i] != '\0' && file_in_memory[i] != 10) {
             have_body = 1;
             break;
         }
@@ -107,9 +125,9 @@ void parse_letter(const char *path_to_eml) {
             next_line = 1;
         }
     }
-    
+
     letter_t data = {0};
-    lexem_t lexem = L_ERROR;
+    lexem_t lexem;
     state_t state = S_HEAD;
 
     int is_body_found = 0;
@@ -150,7 +168,7 @@ void parse_letter(const char *path_to_eml) {
                 if (lexem == L_FROM &&
                     state != S_FROM &&
                     state != S_FROM_TO &&
-                    state != S_FROM_TO_BOUND && 
+                    state != S_FROM_TO_BOUND &&
                     state != S_FROM_BOUND &&
                     state != S_FROM_DATE &&
                     state != S_FROM_DATE_BOUND &&
@@ -174,19 +192,19 @@ void parse_letter(const char *path_to_eml) {
                     state != S_FROM_TO &&
                     state != S_FROM_TO_DATE &&
                     state != S_END) {
-                    char *saveptr;
+                    char *extraptr;
                     strncat(data.to, line, strlen(line));
-                    data.to = strtok_r(data.to, "\n\r", &saveptr);
+                    data.to = strtok_r(data.to, "\n\r", &extraptr);
                 }
 
                 if (lexem == L_DATE &&
-                    state != S_DATE && 
+                    state != S_DATE &&
                     state != S_DATE_BOUND &&
-                    state != S_TO_DATE && 
+                    state != S_TO_DATE &&
                     state != S_TO_DATE_BOUND &&
                     state != S_FROM_TO_DATE &&
                     state != S_FROM_DATE_BOUND &&
-                    state != S_FROM_DATE && 
+                    state != S_FROM_DATE &&
                     state != S_END) {
                     char *saveptr1;
                     char *saveptr2;
@@ -210,13 +228,13 @@ void parse_letter(const char *path_to_eml) {
         } else {
             state = rule.state;
         }
-        
+
         if (state == S_BOUND ||
             state == S_FROM_BOUND ||
-            state == S_DATE_BOUND || 
+            state == S_DATE_BOUND ||
             state == S_FROM_TO_BOUND ||
             state == S_FROM_DATE_BOUND ||
-            state == S_TO_DATE_BOUND || 
+            state == S_TO_DATE_BOUND ||
             state == S_END) {
             is_body_found = 1;
         }
@@ -230,7 +248,7 @@ void parse_letter(const char *path_to_eml) {
         data.num_parts = 1;
     }
     if (data.from) {
-        for(size_t i = 0; i < strlen(data.from); i++) {
+        for (size_t i = 0; i < strlen(data.from); i++) {
             printf("%c", data.from[i]);
         }
     }
