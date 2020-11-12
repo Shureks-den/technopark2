@@ -32,7 +32,7 @@ void Armor::print_armor_info(const std::map<std::string, Armor>& clothes) {
         }
     }
     for (const auto& [name, ch] : clothes) {
-        if(ch.equipped) {
+        if (ch.equipped) {
             std::cout << std::endl << " * throw " << name;
         }
     }

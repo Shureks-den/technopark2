@@ -1,5 +1,5 @@
-#ifndef PREP_2020_02_ARMOR_H
-#define PREP_2020_02_ARMOR_H
+#ifndef PROJECT_INCLUDE_ARMOR_H_
+#define PROJECT_INCLUDE_ARMOR_H_
 
 #include <iostream>
 #include <string>
@@ -44,4 +44,4 @@ class Armor {
 };
 
 
-#endif //PREP_2020_02_ARMOR_H
+#endif  // PROJECT_INCLUDE_ARMOR_H_

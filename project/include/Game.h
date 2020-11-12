@@ -21,7 +21,7 @@ class Game {
     void init_clothes(std::map<std::string, Armor>& clothes);
     void print_status_clothes(std::map<std::string, Armor>& clothes);
     movement &print_actions(size_t obj, movement &move, bool &enemy_live,
-                            Map &map,std::map<std::string, Armor>& clothes);
+                            Map &map, std::map<std::string, Armor>& clothes);
     void execute_command(Creature &enemy, const std::string command, size_t &obj,
                          movement &move, std::map<std::string, Armor>& clothes);
     Map map;

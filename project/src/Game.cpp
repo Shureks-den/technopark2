@@ -12,7 +12,8 @@ void Game::print_player_st2() const {
     ", armor: " << player.get_ARM() << " > ";
 }
 
-movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live, Map &map,std::map<std::string, Armor>& clothes) {
+movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live, Map &map,
+                              std::map<std::string, Armor>& clothes) {
     std::cout << "Supported actions:";
 
     if (obj >= enemy_wolf && obj <= enemy_rat) {
@@ -44,12 +45,12 @@ void Game::execute_command(Creature &enemy, const std::string command, size_t &o
         return;
     }
 
-    if (command.compare(0,4, "pick") == 0) {
+    if (command.compare(0, 4, "pick") == 0) {
         player.pick_clothes(command, clothes, obj);
         return;
     }
 
-    if(command.compare(0,5, "throw") == 0) {
+    if (command.compare(0, 5, "throw") == 0) {
         player.throw_clothes(command, clothes);
     }
 }
@@ -63,9 +64,8 @@ void Game::run() {
     init_clothes(clothes);
 
     while (player.get_hp() > 0) {
-        move = print_actions(obj, move, enemy_live,map, clothes) ;
-
-        if(stage2) {
+        move = print_actions(obj, move, enemy_live, map, clothes);
+        if (stage2) {
             print_player_st2();
         } else {
             print_player_st1();
@@ -88,13 +88,13 @@ void Game::init_clothes(std::map<std::string, Armor> &clothes) {
 
 void Game::print_status_clothes(std::map<std::string, Armor> &clothes) {
     for (const auto& [name, ch] : clothes) {
-        if(ch.get_found() && !ch.get_equipped()) {
+        if (ch.get_found() && !ch.get_equipped()) {
             std::cout << std::endl << " * pick " << name;
         }
     }
 
     for (const auto& [name, ch] : clothes) {
-        if(ch.get_equipped()) {
+        if (ch.get_equipped()) {
             std::cout << std::endl << " * throw " << name;
         }
     }

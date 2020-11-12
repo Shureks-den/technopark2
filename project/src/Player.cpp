@@ -23,7 +23,7 @@ void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, M
 
 void Player::pick_clothes(const std::string &command, std::map<std::string, Armor> &clothes, size_t &obj) {
     for (auto& [name, ch] : clothes) {
-        if(ch.get_found() && command.find(name) > 0 && !ch.get_equipped() && (WGT + ch.get_WGT() <= 20)) {
+        if (ch.get_found() && command.find(name) > 0 && !ch.get_equipped() && (WGT + ch.get_WGT() <= 20)) {
             std::cout << std::endl << "clothes worn" << std::endl;
 
             ch.set_equipped(true);
@@ -40,7 +40,7 @@ void Player::pick_clothes(const std::string &command, std::map<std::string, Armo
 
 void Player::throw_clothes(const std::string &command, std::map<std::string, Armor> &clothes) {
     for (auto& [name, ch] : clothes) {
-        if(ch.get_equipped() && command.find(name) != std::string::npos) {
+        if (ch.get_equipped() && command.find(name) != std::string::npos) {
             std::cout << std::endl << "the " << name << " is thrown out" << std::endl;
 
             ch.set_equipped(false);
@@ -53,7 +53,7 @@ void Player::throw_clothes(const std::string &command, std::map<std::string, Arm
     }
 }
 void Player::move(movement &move, const std::string &command, size_t &obj, Creature &enemy,
-                  Map &map,std::map<std::string, Armor>& clothes) {
+                  Map &map, std::map<std::string, Armor>& clothes) {
     if (command == "move left" && move.left) {
         map.set_x(map.get_x() - 1);
         print_moved(obj, map);
