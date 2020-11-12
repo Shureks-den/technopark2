@@ -10,7 +10,7 @@ void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, M
         enemy_type = 0;
         return;
     }
-    if ((enemy.get_weapon_DMG() + enemy.get_base_DMG()) < ARM) {
+    if ((enemy.get_weapon_DMG() + enemy.get_base_DMG()) <= ARM) {
         HP--;
     } else {
         HP -= ((enemy.get_base_DMG() + enemy.get_weapon_DMG()) - ARM);
