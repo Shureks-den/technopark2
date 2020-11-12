@@ -1,12 +1,10 @@
-//
-// Created by zennoma on 11.11.2020.
-//
-
-#ifndef PREP_2020_02_CREATURE_H
-#define PREP_2020_02_CREATURE_H
+#ifndef PROJECT_INCLUDE_CREATURE_H_
+#define PROJECT_INCLUDE_CREATURE_H_
 
 #include <iostream>
 #include <vector>
+#include <string>
+
 enum enemy_hp {
     wolf_hp = 6,
     dog_hp = 3,
@@ -20,7 +18,7 @@ enum enemy_dmg {
 };
 
 class Creature {
-public:
+ public:
     Creature() = default;
     explicit Creature(size_t type);
     ~Creature() = default;
@@ -32,15 +30,12 @@ public:
     [[nodiscard]] int get_HP() const;
     [[nodiscard]] size_t get_weapon_DMG() const;
     void set_HP(int new_value);
-protected:
+
+ private:
     std::string enemy_name;
     size_t DMG_base = 1;
     size_t weapon_DMG;
     int HP_;
 };
 
-
-
-
-
-#endif //PREP_2020_02_CREATURE_H
+#endif  // PROJECT_INCLUDE_CREATURE_H_

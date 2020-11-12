@@ -1,19 +1,20 @@
-#ifndef PREP_2020_02_GAME_H
-#define PREP_2020_02_GAME_H
-
+#ifndef PROJECT_INCLUDE_GAME_H_
+#define PROJECT_INCLUDE_GAME_H_
 
 #include <iostream>
+#include <string>
+
 #include "Player.h"
 
 class Game {
-public:
+ public:
     Game() = default;
     explicit Game(const std::string &file_name);
     ~Game() = default;
 
     void run();
 
-private:
+ private:
     bool enemy_live;
     void print_player() const;
     movement &print_actions(size_t obj, movement &move, bool &enemy_live);
@@ -23,5 +24,4 @@ private:
     Player player;
 };
 
-
-#endif //PREP_2020_02_GAME_H
+#endif  // PROJECT_INCLUDE_GAME_H_

@@ -1,17 +1,18 @@
-#ifndef PREP_2020_02_MAP_H
-#define PREP_2020_02_MAP_H
+#ifndef PROJECT_INCLUDE_MAP_H_
+#define PROJECT_INCLUDE_MAP_H_
 /* идея сделать 0 пустой, свободной, для перемещения клеткой, 1 с оружием, 2 с монстром */
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "Creature.h"
 
 typedef enum {
     safe_zone,  // 0
-    enemy_wolf, // 1
+    enemy_wolf,  // 1
     enemy_dog,  // 2
-    enemy_rat, // 3
+    enemy_rat,  // 3
 } map_event_t;
 
 struct player_pos {
@@ -27,7 +28,7 @@ struct movement {
 };
 
 class Map{
-public:
+ public:
     Map() = default;
     ~Map() = default;
     explicit Map(const std::string &path_to_map);
@@ -42,12 +43,11 @@ public:
 
     void set_x(size_t new_value);
     void set_y(size_t new_value);
-private:
+ private:
     size_t height_;
     size_t width_;
     std::vector<std::vector<int>> field_;
     player_pos pos;
 };
 
-
-#endif //PREP_2020_02_MAP_H
+#endif  // PROJECT_INCLUDE_MAP_H_

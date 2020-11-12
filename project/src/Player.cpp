@@ -2,7 +2,7 @@
 void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, Map &map) {
     enemy.set_HP(enemy.get_HP() - DMG);
 
-    if(enemy.get_HP() <= 0) {
+    if (enemy.get_HP() <= 0) {
         std::cout << std::endl << "enemy killed" << std::endl;
         enemy_live = false;
         enemy.update_enemy_hp();
@@ -13,7 +13,7 @@ void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, M
 
     HP -= (enemy.get_base_DMG() + enemy.get_weapon_DMG());
 
-    if(HP > 0) {
+    if (HP > 0) {
         std::cout << std::endl << "enemy kicked. Enemy hp: " << enemy.get_HP() << std::endl;
     }
 }
@@ -60,7 +60,7 @@ void Player::move(movement &move, const std::string &command, size_t &obj, Creat
 }
 void Player::print_moved(size_t &obj, const Map &map) const {
     obj = map.get_obj();
-    if(obj == 0) {
+    if (obj == 0) {
         std::cout << std::endl << "moved" << std::endl;
         return;
     }

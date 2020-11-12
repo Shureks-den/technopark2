@@ -1,12 +1,15 @@
-#ifndef PREP_2020_02_PLAYER_H
-#define PREP_2020_02_PLAYER_H
+#ifndef  PROJECT_INCLUDE_PLAYER_H_
+#define  PROJECT_INCLUDE_PLAYER_H_
+
+#include <utility>
+#include <string>
 #include "Map.h"
 
 class Player {
-public:
+ public:
     Player() = default;
     ~Player() = default;
-    void kick_enemy (Creature &enemy, size_t &enemy_type, bool &enemy_live, Map &map);
+    void kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, Map &map);
 
     void move(movement &move, const std::string &command, size_t &obj,
               Creature &enemy, Map &map);
@@ -15,10 +18,10 @@ public:
 
     int get_hp() const;
 
-private:
+ private:
     int HP = 100;
     size_t DMG = 1;
 };
 
 
-#endif //PREP_2020_02_PLAYER_H
+#endif  // PROJECT_INCLUDE_PLAYER_H_

@@ -7,7 +7,7 @@ Map::Map(const std::string &path_to_map) {
     width_ = 0;
     height_ = 0;
     std::ifstream fin(path_to_map);
-    if(!fin.is_open()) {
+    if (!fin.is_open()) {
         std::cout << "file error" << std::endl;
         exit(1);
     }
@@ -23,12 +23,12 @@ Map::Map(const std::string &path_to_map) {
     int x = 0;
     int y = 0;
     std::string enemy;
-    while(fin >> x >> y >> enemy) {
-        if(enemy == "dog") {
+    while (fin >> x >> y >> enemy) {
+        if (enemy == "dog") {
             field_[y][x] = enemy_dog;
         } else if (enemy == "wolf") {
             field_[y][x] = enemy_wolf;
-        } else if(enemy == "rat") {
+        } else if (enemy == "rat") {
             field_[y][x] = enemy_rat;
         }
     }
@@ -69,8 +69,8 @@ void Map::where_to_move(movement &move) const {
 }
 
 void Map::print_map() {
-    for(size_t i = 0; i < width_; i++) {
-        for(size_t j = 0; j < height_; j++) {
+    for (size_t i = 0; i < width_; i++) {
+        for (size_t j = 0; j < height_; j++) {
             std::cout << field_[j][i] << "  ";
         }
         std::cout << std::endl;

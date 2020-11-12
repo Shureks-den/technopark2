@@ -10,7 +10,7 @@ void Game::print_player() const {
 movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live) {
     std::cout << "Supported actions:";
 
-    if(obj >= enemy_wolf && obj <= enemy_rat) {
+    if (obj >= enemy_wolf && obj <= enemy_rat) {
         enemy_live = true;
         std::cout << std::endl << " * kick enemy";
     } else {
@@ -35,7 +35,7 @@ void Game::run() {
     movement move;
     std::string command;
 
-    while(player.get_hp() > 0) {
+    while (player.get_hp() > 0) {
         move = print_actions(obj, move, enemy_live);
         print_player();
         if (!getline(std::cin, command)) {
