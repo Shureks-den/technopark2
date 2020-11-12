@@ -22,14 +22,24 @@ Map::Map(const std::string &path_to_map) {
     }
     int x = 0;
     int y = 0;
-    std::string enemy;
-    while (fin >> x >> y >> enemy) {
-        if (enemy == "dog") {
+    std::string event;
+    while (fin >> x >> y >> event) {
+        if (event == "dog") {
             field_[y][x] = enemy_dog;
-        } else if (enemy == "wolf") {
+        } else if (event == "wolf") {
             field_[y][x] = enemy_wolf;
-        } else if (enemy == "rat") {
+        } else if (event == "rat") {
             field_[y][x] = enemy_rat;
+        } else if (event == "armor") {
+            field_[y][x] = found_armor;
+        } else if (event == "helmet") {
+            field_[y][x] = found_helmet;
+        } else if (event == "shield") {
+            field_[y][x] = found_shield;
+        } else if (event == "pants") {
+            field_[y][x] = found_pants;
+        } else if (event == "T-Shirt") {
+            field_[y][x] = found_T_Shirt;
         }
     }
     fin.close();

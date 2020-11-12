@@ -3,15 +3,23 @@
 
 
 int main(int argc, const char** argv) {
-    if (argc != 3) {
+    bool stage2 = false;
+    int map_argv;
+
+    if (argc < 3) {
         puts("Wrong number of arguments...");
         return 1;
     }
-    if (strcmp(argv[1], "--map")) {
-        puts("no keyword --map");
-        return 2;
+    for (int i = 0; i < argc; i++) {
+        if (strcmp(argv[i], "--map") == 0) {
+            map_argv = i + 1;
+        }
+        if (strcmp(argv[i], "--view-armor") == 0) {
+            stage2 = true;
+        }
     }
-    Game game(argv[2]);
+
+    Game game(argv[map_argv], stage2);
     game.run();
     return 0;
 }

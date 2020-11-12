@@ -9,7 +9,8 @@ SRCS = \
        project/src/Map.cpp \
        project/src/Creature.cpp \
        project/src/Player.cpp \
-       project/src/Game.cpp
+       project/src/Game.cpp \
+       project/src/Armor.cpp
 
 .PHONY: all clean
 

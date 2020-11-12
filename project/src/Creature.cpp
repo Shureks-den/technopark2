@@ -39,7 +39,7 @@ void Creature::print_info() {
     std::cout << std::endl << enemy_name << " found, " << get_HP() << " hp" << std::endl;
 }
 
-size_t Creature::get_weapon_DMG() const {
+int Creature::get_weapon_DMG() const {
     return weapon_DMG;
 }
 
@@ -47,7 +47,7 @@ int Creature::get_HP() const {
     return HP_;
 }
 
-size_t Creature::get_base_DMG() const {
+int Creature::get_base_DMG() const {
     return DMG_base;
 }
 

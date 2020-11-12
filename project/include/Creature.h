@@ -26,15 +26,15 @@ class Creature {
     void print_info();
     void update_enemy_hp();
 
-    [[nodiscard]] size_t get_base_DMG() const;
+    [[nodiscard]] int get_base_DMG() const;
     [[nodiscard]] int get_HP() const;
-    [[nodiscard]] size_t get_weapon_DMG() const;
+    [[nodiscard]] int get_weapon_DMG() const;
     void set_HP(int new_value);
 
  private:
     std::string enemy_name;
-    size_t DMG_base = 1;
-    size_t weapon_DMG;
+    int DMG_base = 1;
+    int weapon_DMG;
     int HP_;
 };
 
