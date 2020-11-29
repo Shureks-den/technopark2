@@ -25,15 +25,3 @@ bool Armor::get_found() const {
     return found;
 }
 
-void Armor::print_armor_info(const std::map<std::string, Armor>& clothes) {
-    for (const auto& [name, ch] : clothes) {
-        if (ch.found && !ch.equipped) {
-            std::cout << std::endl << " * pick " << name;
-        }
-    }
-    for (const auto& [name, ch] : clothes) {
-        if (ch.equipped) {
-            std::cout << std::endl << " * throw " << name;
-        }
-    }
-}

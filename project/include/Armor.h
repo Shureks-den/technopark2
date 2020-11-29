@@ -35,7 +35,6 @@ class Armor {
     bool get_equipped() const;
     bool get_found() const;
 
-    void print_armor_info(const std::map<std::string, Armor>& clothes);
  private:
     bool equipped = false;
     bool found = false;
