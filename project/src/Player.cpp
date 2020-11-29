@@ -1,22 +1,28 @@
 #include "Player.h"
+
+Player::Player() {
+    HP_ = 100;
+    WGT = 0;
+    ARM = 0;
+}
+
 void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, Map &map) {
-    enemy.set_HP(enemy.get_HP() - DMG);
+    enemy.take_dmg(DMG_base);
 
     if (enemy.get_HP() <= 0) {
         std::cout << std::endl << "enemy killed" << std::endl;
         enemy_live = false;
-        enemy.update_enemy_hp();
-        map.enemy_dead();
+        map.clear_zone();
         enemy_type = 0;
         return;
     }
     if ((enemy.get_weapon_DMG() + enemy.get_base_DMG()) <= ARM) {
-        HP--;
+        this->take_dmg(1);
     } else {
-        HP -= ((enemy.get_base_DMG() + enemy.get_weapon_DMG()) - ARM);
+        this->take_dmg(((enemy.get_base_DMG() + enemy.get_weapon_DMG()) - ARM));
     }
 
-    if (HP > 0) {
+    if (HP_ > 0) {
         std::cout << std::endl << "enemy kicked. Enemy hp: " << enemy.get_HP() << std::endl;
     }
 }
@@ -90,23 +96,23 @@ void Player::move(movement &move, const std::string &command, size_t &obj, Creat
             enemy = rat;
             enemy.print_info();
             return;
-        case found_pants:
+        case pants:
             std::cout << std::endl << "pants found" << std::endl;
             clothes["pants"].set_found(true);
             return;
-        case found_helmet:
+        case helmet:
             std::cout << std::endl << "helmet found" << std::endl;
             clothes["helmet"].set_found(true);
             return;
-        case found_T_Shirt:
+        case T_Shirt:
             std::cout << std::endl << "T-Shirt found" << std::endl;
             clothes["T-Shirt"].set_found(true);
             return;
-        case found_shield:
+        case shield:
             std::cout << std::endl << "shield found" << std::endl;
             clothes["shield"].set_found(true);
             return;
-        case found_armor:
+        case armor:
             std::cout << std::endl << "armor found" << std::endl;
             clothes["armor"].set_found(true);
             return;
@@ -120,10 +126,6 @@ void Player::print_moved(size_t &obj, const Map &map) const {
         std::cout << std::endl << "moved" << std::endl;
         return;
     }
-}
-
-int Player::get_hp() const {
-    return HP;
 }
 
 int Player::get_ARM() const {

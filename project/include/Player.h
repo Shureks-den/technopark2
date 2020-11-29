@@ -6,10 +6,9 @@
 #include <map>
 #include "Map.h"
 
-class Player {
+class Player : public Creature {
  public:
-    Player() = default;
-    ~Player() = default;
+    Player();
     void kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, Map &map);
 
     void pick_clothes(const std::string &command, std::map<std::string, Armor>& clothes, size_t &obj);
@@ -20,14 +19,11 @@ class Player {
 
     void print_moved(size_t &obj, const Map &map) const;
 
-    int get_hp() const;
     int get_ARM() const;
 
  private:
-    int WGT = 0;
-    int ARM = 0;
-    int HP = 100;
-    size_t DMG = 1;
+    int WGT;
+    int ARM;
 };
 
 

@@ -24,18 +24,20 @@ class Creature {
     ~Creature() = default;
 
     void print_info();
-    void update_enemy_hp();
 
     [[nodiscard]] int get_base_DMG() const;
     [[nodiscard]] int get_HP() const;
     [[nodiscard]] int get_weapon_DMG() const;
     void set_HP(int new_value);
+    void take_dmg(int dmg);
+
+protected:
+    int DMG_base = 1;
+    int HP_;
 
  private:
     std::string enemy_name;
-    int DMG_base = 1;
     int weapon_DMG;
-    int HP_;
 };
 
 #endif  // PROJECT_INCLUDE_CREATURE_H_

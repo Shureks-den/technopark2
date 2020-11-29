@@ -10,15 +10,15 @@
 #include "Armor.h"
 
 typedef enum {
-    safe_zone,  // 0
+    empty_zone,  // 0
     enemy_wolf,  // 1
     enemy_dog,  // 2
     enemy_rat,  // 3
-    found_armor,  // 4
-    found_helmet,  // 5
-    found_shield,  // 6
-    found_pants,  // 7
-    found_T_Shirt  // 8
+    armor,  // 4
+    helmet,  // 5
+    shield,  // 6
+    pants,  // 7
+    T_Shirt  // 8
 } map_event_t;
 
 struct player_pos {
@@ -39,9 +39,8 @@ class Map{
     ~Map() = default;
     explicit Map(const std::string &path_to_map);
 
-    void print_map();
     void where_to_move(movement &move) const;
-    void enemy_dead();
+    void clear_zone();
 
     size_t get_x() const;
     size_t get_y() const;

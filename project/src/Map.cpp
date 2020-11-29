@@ -17,7 +17,7 @@ Map::Map(const std::string &path_to_map) {
     for (auto& row : field_) {
         row.resize(width_);
         for (auto &element : row) {
-            element = safe_zone;
+            element = empty_zone;
         }
     }
     int x = 0;
@@ -31,15 +31,15 @@ Map::Map(const std::string &path_to_map) {
         } else if (event == "rat") {
             field_[y][x] = enemy_rat;
         } else if (event == "armor") {
-            field_[y][x] = found_armor;
+            field_[y][x] = armor;
         } else if (event == "helmet") {
-            field_[y][x] = found_helmet;
+            field_[y][x] = helmet;
         } else if (event == "shield") {
-            field_[y][x] = found_shield;
+            field_[y][x] = shield;
         } else if (event == "pants") {
-            field_[y][x] = found_pants;
+            field_[y][x] = pants;
         } else if (event == "T-Shirt") {
-            field_[y][x] = found_T_Shirt;
+            field_[y][x] = T_Shirt;
         }
     }
     fin.close();
@@ -78,16 +78,7 @@ void Map::where_to_move(movement &move) const {
     }
 }
 
-void Map::print_map() {
-    for (size_t i = 0; i < width_; i++) {
-        for (size_t j = 0; j < height_; j++) {
-            std::cout << field_[j][i] << "  ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-void Map::enemy_dead() {
+void Map::clear_zone() {
     field_[pos.y][pos.x] = 0;
 }
 
