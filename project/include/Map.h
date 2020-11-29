@@ -20,38 +20,22 @@ typedef enum {
     T_Shirt  // 8
 } map_event_t;
 
-struct player_pos {
-    size_t x = 0;
-    size_t y = 0;
-};
-
-struct movement {
-    bool left = false;
-    bool right = false;
-    bool up = false;
-    bool down = false;
-};
-
 class Map{
  public:
     Map() = default;
     ~Map() = default;
     explicit Map(const std::string &path_to_map);
 
-    void where_to_move(movement &move) const;
-    void clear_zone();
+    void clear_zone(int y, int x);
+    [[nodiscard]] int get_obj(int y, int x) const;
 
-    size_t get_x() const;
-    size_t get_y() const;
-    int get_obj() const;
+    [[nodiscard]] size_t get_width() const;
+    [[nodiscard]] size_t get_height() const;
 
-    void set_x(size_t new_value);
-    void set_y(size_t new_value);
  private:
     size_t height_;
     size_t width_;
     std::vector<std::vector<int>> field_;
-    player_pos pos;
 };
 
 #endif  // PROJECT_INCLUDE_MAP_H_

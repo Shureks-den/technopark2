@@ -12,7 +12,7 @@ void Player::kick_enemy(Creature &enemy, size_t &enemy_type, bool &enemy_live, M
     if (enemy.get_HP() <= 0) {
         std::cout << std::endl << "enemy killed" << std::endl;
         enemy_live = false;
-        map.clear_zone();
+        map.clear_zone(this->get_y(), this->get_x());
         enemy_type = 0;
         return;
     }
@@ -62,19 +62,19 @@ void Player::throw_clothes(const std::string &command, std::map<std::string, Arm
 void Player::move(movement &move, const std::string &command, size_t &obj, Creature &enemy,
                   Map &map, std::map<std::string, Armor>& clothes) {
     if (command == "move left" && move.left) {
-        map.set_x(map.get_x() - 1);
+        this->set_x(this->get_x() - 1);
         print_moved(obj, map);
     }
     if (command == "move right" && move.right) {
-        map.set_x(map.get_x() + 1);
+        this->set_x(this->get_x() + 1);
         print_moved(obj, map);
     }
     if (command == "move down" && move.down) {
-        map.set_y(map.get_y() - 1);
+        this->set_y(this->get_y() - 1);
         print_moved(obj, map);
     }
     if (command == "move up" && move.up) {
-        map.set_y(map.get_y() + 1);
+        this->set_y(this->get_y() + 1);
         print_moved(obj, map);
     }
 
@@ -122,7 +122,7 @@ void Player::move(movement &move, const std::string &command, size_t &obj, Creat
     }
 }
 void Player::print_moved(size_t &obj, const Map &map) const {
-    obj = map.get_obj();
+    obj = map.get_obj(get_y(), get_x());
     if (obj == 0) {
         std::cout << std::endl << "moved" << std::endl;
         return;
@@ -133,3 +133,51 @@ int Player::get_ARM() const {
     return ARM;
 }
 
+size_t Player::get_x() const {
+    return pos.x;
+}
+
+size_t Player::get_y() const {
+    return pos.y;
+}
+
+void Player::set_x(size_t new_value) {
+    pos.x = new_value;
+}
+
+void Player::set_y(size_t new_value) {
+    pos.y = new_value;
+}
+
+void Player::where_to_move(movement &move, Map map) const {
+    if (pos.x > 0) {
+        move.left = true;
+        std::cout << std::endl << " * move left";
+    } else {
+        move.left = false;
+    }
+
+    if (pos.x + 1 < map.get_width()) {
+        move.right = true;
+        std::cout << std::endl << " * move right";
+    } else {
+        move.right = false;
+    }
+
+    if (pos.y > 0) {
+        move.down = true;
+        std::cout << std::endl << " * move down";
+    } else {
+        move.down = false;
+    }
+
+    if (pos.y + 1 < map.get_height()) {
+        move.up = true;
+        std::cout << std::endl << " * move up";
+    } else {
+        move.up = false;
+    }
+    if (!(move.right || move.left || move.down || move.up)) {
+        std::cout << std::endl;
+    }
+}

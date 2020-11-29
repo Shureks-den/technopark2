@@ -45,60 +45,19 @@ Map::Map(const std::string &path_to_map) {
     fin.close();
 }
 
-void Map::where_to_move(movement &move) const {
-    if (pos.x > 0) {
-        move.left = true;
-        std::cout << std::endl << " * move left";
-    } else {
-        move.left = false;
-    }
 
-    if (pos.x + 1 < width_) {
-        move.right = true;
-        std::cout << std::endl << " * move right";
-    } else {
-        move.right = false;
-    }
-
-    if (pos.y > 0) {
-        move.down = true;
-        std::cout << std::endl << " * move down";
-    } else {
-        move.down = false;
-    }
-
-    if (pos.y + 1 < height_) {
-        move.up = true;
-        std::cout << std::endl << " * move up";
-    } else {
-        move.up = false;
-    }
-    if (!(move.right || move.left || move.down || move.up)) {
-        std::cout << std::endl;
-    }
+void Map::clear_zone(int y, int x) {
+    field_[y][x] = 0;
 }
 
-void Map::clear_zone() {
-    field_[pos.y][pos.x] = 0;
+int Map::get_obj(int y, int x) const {
+    return field_[y][x];
 }
 
-int Map::get_obj() const {
-    return field_[pos.y][pos.x];
-}
-size_t Map::get_x() const {
-    return pos.x;
+size_t Map::get_height() const {
+    return height_;
 }
 
-size_t Map::get_y() const {
-    return pos.y;
+size_t Map::get_width() const {
+    return width_;
 }
-
-void Map::set_x(size_t new_value) {
-    pos.x = new_value;
-}
-
-void Map::set_y(size_t new_value) {
-    pos.y = new_value;
-}
-
-

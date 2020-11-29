@@ -4,11 +4,11 @@ Game::Game(const std::string &file_name, bool stage2) : enemy_live(false), map(f
 
 
 void Game::print_player_st1() const {
-    std::cout << std::endl << map.get_x() << " x " << map.get_y() << ", hp: " << player.get_HP() << " > ";
+    std::cout << std::endl << player.get_x() << " x " << player.get_y() << ", hp: " << player.get_HP() << " > ";
 }
 
 void Game::print_player_st2() const {
-    std::cout << std::endl << map.get_x() << " x " << map.get_y() << ", hp: " << player.get_HP() <<
+    std::cout << std::endl << player.get_x() << " x " << player.get_y() << ", hp: " << player.get_HP() <<
     ", armor: " << player.get_ARM() << " > ";
 }
 
@@ -20,7 +20,7 @@ movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live, Map 
         enemy_live = true;
         std::cout << std::endl << " * kick enemy";
     } else {
-        map.where_to_move(move);
+        player.where_to_move(move, map);
         if (obj > enemy_rat) {
             print_status_clothes(clothes);
         }
@@ -31,7 +31,7 @@ movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live, Map 
 void Game::execute_command(Creature &enemy, const std::string command, size_t &obj, movement &move,
                            std::map<std::string, Armor> &clothes) {
     if (command == "move left" || command == "move right" || command == "move up" || command == "move down") {
-        map.clear_zone();
+        map.clear_zone(player.get_y(), player.get_x());
 
         for (auto&[name, ch] : clothes) {
             clothes[name] = ch;
