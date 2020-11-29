@@ -28,7 +28,6 @@ class Creature {
     [[nodiscard]] int get_base_DMG() const;
     [[nodiscard]] int get_HP() const;
     [[nodiscard]] int get_weapon_DMG() const;
-    void set_HP(int new_value);
     void take_dmg(int dmg);
 
  protected:

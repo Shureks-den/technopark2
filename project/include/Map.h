@@ -1,6 +1,5 @@
 #ifndef PROJECT_INCLUDE_MAP_H_
 #define PROJECT_INCLUDE_MAP_H_
-/* идея сделать 0 пустой, свободной, для перемещения клеткой, 1 с оружием, 2 с монстром */
 
 #include <iostream>
 #include <vector>

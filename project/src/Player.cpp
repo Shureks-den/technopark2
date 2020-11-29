@@ -58,6 +58,7 @@ void Player::throw_clothes(const std::string &command, std::map<std::string, Arm
         }
     }
 }
+
 void Player::move(movement &move, const std::string &command, size_t &obj, Creature &enemy,
                   Map &map, std::map<std::string, Armor>& clothes) {
     if (command == "move left" && move.left) {

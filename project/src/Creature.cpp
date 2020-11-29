@@ -43,10 +43,6 @@ int Creature::get_base_DMG() const {
     return DMG_base;
 }
 
-void Creature::set_HP(int new_value) {
-    HP_ = new_value;
-}
-
 void Creature::take_dmg(int dmg) {
     HP_ -= dmg;
 }
