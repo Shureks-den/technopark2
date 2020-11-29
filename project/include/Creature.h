@@ -31,7 +31,7 @@ class Creature {
     void set_HP(int new_value);
     void take_dmg(int dmg);
 
-protected:
+ protected:
     int DMG_base = 1;
     int HP_;
 
