@@ -16,6 +16,9 @@ class Game {
 
  private:
     bool enemy_live;
+    bool is_enemy(size_t obj);
+    bool is_clothes(size_t obj);
+
     void print_player_st1() const;
     void print_player_st2() const;
     void init_clothes(std::map<std::string, Armor>& clothes);

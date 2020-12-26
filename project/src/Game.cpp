@@ -16,12 +16,12 @@ movement& Game::print_actions(size_t obj, movement &move, bool &enemy_live, Map 
                               std::map<std::string, Armor>& clothes) {
     std::cout << "Supported actions:";
 
-    if (obj >= enemy_wolf && obj <= enemy_rat) {
+    if (is_enemy(obj)) {
         enemy_live = true;
         std::cout << std::endl << " * kick enemy";
     } else {
         player.where_to_move(move, map);
-        if (obj > enemy_rat) {
+        if (is_clothes(obj)) {
             print_status_clothes(clothes);
         }
     }
@@ -53,6 +53,39 @@ void Game::execute_command(Creature &enemy, const std::string command, size_t &o
     if (command.find("throw") != std::string::npos) {
         player.throw_clothes(command, clothes);
     }
+}
+
+
+bool Game::is_enemy(size_t obj) {
+    if (obj == enemy_wolf) {
+        return true;
+    }  
+    if (obj == enemy_dog) {
+        return true;
+    } 
+    if (obj == enemy_rat) {
+        return true;
+    }
+    return false;
+}
+
+bool Game::is_clothes(size_t obj) {
+   if (obj == clothes_armor) {
+        return true;
+    }  
+    if (obj == clothes_helmet) {
+        return true;
+    } 
+    if (obj == clothes_pants) {
+        return true;
+    }
+    if (obj == clothes_shield) {
+        return true;
+    }
+    if (obj == clothes_T_Shirt) {
+        return true;
+    }
+    return false; 
 }
 
 void Game::run() {

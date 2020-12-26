@@ -97,23 +97,23 @@ void Player::move(movement &move, const std::string &command, size_t &obj, Creat
             enemy = rat;
             enemy.print_info();
             return;
-        case pants:
+        case clothes_pants:
             std::cout << std::endl << "pants found" << std::endl;
             clothes["pants"].set_found(true);
             return;
-        case helmet:
+        case clothes_helmet:
             std::cout << std::endl << "helmet found" << std::endl;
             clothes["helmet"].set_found(true);
             return;
-        case T_Shirt:
+        case clothes_T_Shirt:
             std::cout << std::endl << "T-Shirt found" << std::endl;
             clothes["T-Shirt"].set_found(true);
             return;
-        case shield:
+        case clothes_shield:
             std::cout << std::endl << "shield found" << std::endl;
             clothes["shield"].set_found(true);
             return;
-        case armor:
+        case clothes_armor:
             std::cout << std::endl << "armor found" << std::endl;
             clothes["armor"].set_found(true);
             return;

@@ -13,11 +13,11 @@ typedef enum {
     enemy_wolf,  // 1
     enemy_dog,  // 2
     enemy_rat,  // 3
-    armor,  // 4
-    helmet,  // 5
-    shield,  // 6
-    pants,  // 7
-    T_Shirt  // 8
+    clothes_armor,  // 4
+    clothes_helmet,  // 5
+    clothes_shield,  // 6
+    clothes_pants,  // 7
+    clothes_T_Shirt  // 8
 } map_event_t;
 
 class Map{

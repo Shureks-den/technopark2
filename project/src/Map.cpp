@@ -31,15 +31,15 @@ Map::Map(const std::string &path_to_map) {
         } else if (event == "rat") {
             field_[y][x] = enemy_rat;
         } else if (event == "armor") {
-            field_[y][x] = armor;
+            field_[y][x] = clothes_armor;
         } else if (event == "helmet") {
-            field_[y][x] = helmet;
+            field_[y][x] = clothes_helmet;
         } else if (event == "shield") {
-            field_[y][x] = shield;
+            field_[y][x] = clothes_shield;
         } else if (event == "pants") {
-            field_[y][x] = pants;
+            field_[y][x] = clothes_pants;
         } else if (event == "T-Shirt") {
-            field_[y][x] = T_Shirt;
+            field_[y][x] = clothes_T_Shirt;
         }
     }
     fin.close();
